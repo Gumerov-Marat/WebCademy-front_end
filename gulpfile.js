@@ -1,5 +1,10 @@
 const gulp = require('gulp'); // Подключаем Gulp
 const browserSync = require('browser-sync').create();
+const watch = require('gulp-watch');
+
+gulp.task('watch', function () {
+  watch(['./app/*.html', './app/css/**/*.css'], gulp.parallel(browserSync.reload));
+});
 
 // Задача для старта сервера из папки app
 gulp.task('server', function () {
@@ -10,4 +15,4 @@ gulp.task('server', function () {
   })
 });
 
-gulp.task('default', gulp.parallel('server'));
+gulp.task('default', gulp.parallel('server', 'watch'));
