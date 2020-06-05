@@ -3,17 +3,29 @@ const browserSync = require('browser-sync').create();
 const watch = require('gulp-watch');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
+const sourceMaps = require('gulp-sourcemaps');
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
+
 
 // Таск для компиляции SCSS в CSS
 gulp.task('scss', function(callback) {
-	return gulp.src('./app/scss/main.scss')
-		.pipe( sourcemaps.init() )
+  return gulp.src('./app/scss/main.scss')
+  .pipe( plumber({
+      errorHandler: notify.onError(function (err) {
+        return {
+            title: 'Styles',
+            sound: false,
+            message: err.message
+        }
+      })
+  }))
+		.pipe( sourceMaps.init() )
 		.pipe( sass() )
 		.pipe( autoprefixer({
 			overrideBrowserslist: ['last 4 versions']
 		}) )
-		.pipe( sourcemaps.write() )
+		.pipe( sourceMaps.write() )
 		.pipe( gulp.dest('./app/css/') )
 	callback();
 });
