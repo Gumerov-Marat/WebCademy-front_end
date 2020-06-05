@@ -6,6 +6,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourceMaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
+const gcmq = require('gulp-group-css-media-queries');
 
 
 // Таск для компиляции SCSS в CSS
@@ -21,7 +22,12 @@ gulp.task('scss', function(callback) {
       })
   }))
 		.pipe( sourceMaps.init() )
-		.pipe( sass() )
+		.pipe( sass({
+      indentType: "tab",
+      indentWidth: 1,
+      outputStyle: "expanded"
+    }) )
+    .pipe(gcmq())
 		.pipe( autoprefixer({
 			overrideBrowserslist: ['last 4 versions']
 		}) )

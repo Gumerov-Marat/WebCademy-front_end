@@ -1,12 +1,11 @@
-@import 'blocks/header';
+@import "./blocks/_header.scss";
+@import "./blocks/_sidebar.scss";
+@import "./blocks/_footer.scss";
 
-$font-stack: Helvetica,
-sans-serif;
-$primary-color: green;
+$color: green;
 
 body {
-  font: 100% $font-stack;
-  color: $primary-color;
-  display: flex;
-  transition: all 0.2s ease-in;
+    color: $color;
+    display: flex;
+    transition: all 0.2s ease-in;
 }
