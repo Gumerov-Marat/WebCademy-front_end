@@ -1,11 +1,9 @@
-// Vars
-@import "./vars/variables";
+@import './blocks/_header.scss';
 
-// Base
-@import "./base/base";
+$color: rgb(23, 0, 128);
 
-// Blocks
-@import "./blocks/**/*.scss";
-
-// Utils
-@import "./utils/utils";
+body {
+  color: $color;
+  display: flex;
+  transition: all 0.2s ease-in;
+}
