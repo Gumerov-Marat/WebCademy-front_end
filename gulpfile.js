@@ -2,12 +2,15 @@ const gulp = require('gulp'); // Подключаем Gulp
 const browserSync = require('browser-sync').create();
 const watch = require('gulp-watch');
 const sass = require('gulp-sass')
+const sourceMaps = require('gulp-sourcemaps');
 
 
 gulp.task('scss', function (callback) {
   return gulp.src('./app//scss/*.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./app/css/'));
+    .pipe( sourceMaps.init())
+    .pipe( sass())
+    .pipe( sourceMaps.write())
+    .pipe( gulp.dest('./app/css/'));
   callback();
 })
 
