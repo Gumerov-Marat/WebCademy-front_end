@@ -3,37 +3,46 @@ const browserSync = require('browser-sync').create();
 const watch = require('gulp-watch');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-const sourceMaps = require('gulp-sourcemaps');
-const plumber = require('gulp-plumber');
+const sourcemaps = require('gulp-sourcemaps');
 const notify = require('gulp-notify');
-const gcmq = require('gulp-group-css-media-queries');
-const sassGlob = require('gulp-sass-glob');
+const plumber = require('gulp-plumber');
+const fileinclude = require('gulp-file-include'); // Для подключения файлов друг в друга
 
+// Таск для сборки HTML и шаблонов
+gulp.task('html', function(callback) {
+	return gulp.src('./app/html/*.html')
+		.pipe( plumber({
+			errorHandler: notify.onError(function(err){
+				return {
+					title: 'HTML include',
+			        sound: false,
+			        message: err.message
+				}
+			})
+		}))
+		.pipe( fileinclude({ prefix: '@@' }) )
+		.pipe( gulp.dest('./app/') )
+	callback();
+});
 
 // Таск для компиляции SCSS в CSS
 gulp.task('scss', function(callback) {
-  return gulp.src('./app/scss/main.scss')
-  .pipe( plumber({
-      errorHandler: notify.onError(function (err) {
-        return {
-            title: 'Styles',
-            sound: false,
-            message: err.message
-        }
-      })
-  }))
-    .pipe( sourceMaps.init() )
-    .pipe(sassGlob())
-		.pipe( sass({
-      indentType: "tab",
-      indentWidth: 1,
-      outputStyle: "expanded"
-    }) )
-    .pipe(gcmq())
+	return gulp.src('./app/scss/main.scss')
+		.pipe( plumber({
+			errorHandler: notify.onError(function(err){
+				return {
+					title: 'Styles',
+			        sound: false,
+			        message: err.message
+				}
+			})
+		}))
+		.pipe( sourcemaps.init() )
+		.pipe( sass() )
 		.pipe( autoprefixer({
 			overrideBrowserslist: ['last 4 versions']
 		}) )
-		.pipe( sourceMaps.write() )
+		.pipe( sourcemaps.write() )
 		.pipe( gulp.dest('./app/css/') )
 	callback();
 });
@@ -51,6 +60,9 @@ gulp.task('watch', function() {
 		setTimeout( gulp.parallel('scss'), 1000 )
 	})
 
+	// Слежение за HTML и сборка страниц и шаблонов
+	watch('./app/html/**/*.html', gulp.parallel('html'))
+
 });
 
 // Задача для старта сервера из папки app
@@ -64,4 +76,4 @@ gulp.task('server', function() {
 
 // Дефолтный таск (задача по умолчанию)
 // Запускаем одновременно задачи server и watch
-gulp.task('default', gulp.parallel('server', 'watch', 'scss'));
+gulp.task('default', gulp.parallel('server', 'watch', 'scss', 'html'));
