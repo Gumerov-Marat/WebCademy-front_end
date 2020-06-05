@@ -1,0 +1,26 @@
+{
+  "name": "webcademy-front_end",
+  "version": "1.0.0",
+  "description": "web development - block (WebCademy)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gumerov-Marat/WebCademy-front_end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gumerov-Marat/WebCademy-front_end/issues"
+  },
+  "homepage": "https://github.com/Gumerov-Marat/WebCademy-front_end#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2"
+  },
+  "dependencies": {
+    "gulp-watch": "^5.0.1"
+  }
+}
