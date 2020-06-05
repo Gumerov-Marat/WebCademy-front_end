@@ -1,13 +1,13 @@
-const gulp = require('gulp')
+const gulp = require('gulp'); // Подключаем Gulp
+const browserSync = require('browser-sync').create();
 
-gulp.task('first', function (callback) {
-  console.log("Hello from first task")
-  callback();
-})
+// Задача для старта сервера из папки app
+gulp.task('server', function () {
+  browserSync.init({
+    server: {
+      baseDir: "./app/"
+    }
+  })
+});
 
-gulp.task('second', function (callback) {
-  console.log("Hello from second task")
-  callback();
-})
-
-gulp.task('default', gulp.parallel('first', 'second')) 
+gulp.task('default', gulp.parallel('server'));
