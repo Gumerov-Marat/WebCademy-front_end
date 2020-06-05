@@ -7,4 +7,6 @@ $primary-color: green;
 body {
   font: 100% $font-stack;
   color: $primary-color;
+  display: flex;
+  transition: all 0.2s ease-in;
 }
