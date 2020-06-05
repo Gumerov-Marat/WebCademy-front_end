@@ -1,11 +1,11 @@
-@import "./blocks/_header.scss";
-@import "./blocks/_sidebar.scss";
-@import "./blocks/_footer.scss";
+// Vars
+@import "./vars/variables";
 
-$color: green;
+// Base
+@import "./base/base";
 
-body {
-    color: $color;
-    display: flex;
-    transition: all 0.2s ease-in;
-}
+// Blocks
+@import "./blocks/**/*.scss";
+
+// Utils
+@import "./utils/utils";

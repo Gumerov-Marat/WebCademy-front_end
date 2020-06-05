@@ -7,6 +7,7 @@ const sourceMaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
 const gcmq = require('gulp-group-css-media-queries');
+const sassGlob = require('gulp-sass-glob');
 
 
 // Таск для компиляции SCSS в CSS
@@ -21,7 +22,8 @@ gulp.task('scss', function(callback) {
         }
       })
   }))
-		.pipe( sourceMaps.init() )
+    .pipe( sourceMaps.init() )
+    .pipe(sassGlob())
 		.pipe( sass({
       indentType: "tab",
       indentWidth: 1,
