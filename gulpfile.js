@@ -6,23 +6,26 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
-const fileinclude = require('gulp-file-include'); // Для подключения файлов друг в друга
+const pug = require('gulp-pug');
 
-// Таск для сборки HTML и шаблонов
-gulp.task('html', function(callback) {
-	return gulp.src('./app/html/*.html')
-		.pipe( plumber({
-			errorHandler: notify.onError(function(err){
+
+// Таск для сборки pug
+gulp.task('pug', function() {
+		// content
+	return gulp.src('./app/pug/pages/**/*.pug')
+		.pipe(plumber({
+			errorHandler: notify.onError(function (err) {
 				return {
-					title: 'HTML include',
-			        sound: false,
-			        message: err.message
+					title: 'Pug',
+					sound: false,
+					message: err.message
 				}
 			})
 		}))
-		.pipe( fileinclude({ prefix: '@@' }) )
-		.pipe( gulp.dest('./app/') )
-	callback();
+		.pipe(pug({
+			pretty: true
+		}))
+		.pipe( gulp.dest('./app/'))
 });
 
 // Таск для компиляции SCSS в CSS
@@ -60,8 +63,8 @@ gulp.task('watch', function() {
 		setTimeout( gulp.parallel('scss'), 1000 )
 	})
 
-	// Слежение за HTML и сборка страниц и шаблонов
-	watch('./app/html/**/*.html', gulp.parallel('html'))
+	// Слежение за PUG и сборка 
+	watch('./app/pug/**/*.pug', gulp.parallel('pug'))
 
 });
 
@@ -76,4 +79,4 @@ gulp.task('server', function() {
 
 // Дефолтный таск (задача по умолчанию)
 // Запускаем одновременно задачи server и watch
-gulp.task('default', gulp.parallel('server', 'watch', 'scss', 'html'));
+gulp.task('default', gulp.parallel('server', 'watch', 'scss', "pug"));
