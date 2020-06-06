@@ -24,6 +24,7 @@ gulp.task('pug', function() {
 			pretty: true
 		}) )
 		.pipe( gulp.dest('./build/') )
+		.pipe(browserSync.stream())
 });
 
 // Таск для компиляции SCSS в CSS
@@ -45,13 +46,14 @@ gulp.task('scss', function(callback) {
 		}) )
 		.pipe( sourcemaps.write() )
 		.pipe( gulp.dest('./build/css/') )
+		.pipe( browserSync.stream())
 	callback();
 });
 
 // Слежение за HTML и CSS и обновление браузера
 gulp.task('watch', function() {
 	// Слежение за HTML и CSS и обновление браузера
-	watch(['./build/*.html', './build/css/**/*.css'], gulp.parallel( browserSync.reload ));
+	watch(['./build/*.html'], gulp.parallel( browserSync.reload ));
 
 	// Запуск слежения и компиляции SCSS с задержкой
 	watch('./src/scss/**/*.scss', function(){
