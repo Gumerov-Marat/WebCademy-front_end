@@ -8,13 +8,11 @@ const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const pug = require('gulp-pug');
 
-
-// Таск для сборки pug
+// Таск для сборки Gulp файлов
 gulp.task('pug', function() {
-		// content
-	return gulp.src('./app/pug/pages/**/*.pug')
-		.pipe(plumber({
-			errorHandler: notify.onError(function (err) {
+	return gulp.src('./src/pug/pages/**/*.pug')
+		.pipe( plumber({
+			errorHandler: notify.onError(function(err){
 				return {
 					title: 'Pug',
 					sound: false,
@@ -22,15 +20,16 @@ gulp.task('pug', function() {
 				}
 			})
 		}))
-		.pipe(pug({
+		.pipe( pug({
 			pretty: true
-		}))
-		.pipe( gulp.dest('./app/'))
+		}) )
+		.pipe( gulp.dest('./build/') )
+		.pipe(browserSync.stream())
 });
 
 // Таск для компиляции SCSS в CSS
 gulp.task('scss', function(callback) {
-	return gulp.src('./app/scss/main.scss')
+	return gulp.src('./src/scss/main.scss')
 		.pipe( plumber({
 			errorHandler: notify.onError(function(err){
 				return {
@@ -46,25 +45,23 @@ gulp.task('scss', function(callback) {
 			overrideBrowserslist: ['last 4 versions']
 		}) )
 		.pipe( sourcemaps.write() )
-		.pipe( gulp.dest('./app/css/') )
+		.pipe( gulp.dest('./build/css/') )
+		.pipe( browserSync.stream())
 	callback();
 });
 
 // Слежение за HTML и CSS и обновление браузера
 gulp.task('watch', function() {
 	// Слежение за HTML и CSS и обновление браузера
-	watch(['./app/*.html', './app/css/**/*.css'], gulp.parallel( browserSync.reload ));
+	watch(['./build/*.html'], gulp.parallel( browserSync.reload ));
 
-	// Слежение за SCSS и компиляция в CSS - обычный способ
-	// watch('./app/scss/**/*.scss', gulp.parallel('scss'));
-
-	// Запуск слежения и компиляции SCSS с задержкой, для жесктих дисков HDD
-	watch('./app/scss/**/*.scss', function(){
+	// Запуск слежения и компиляции SCSS с задержкой
+	watch('./src/scss/**/*.scss', function(){
 		setTimeout( gulp.parallel('scss'), 1000 )
 	})
 
-	// Слежение за PUG и сборка 
-	watch('./app/pug/**/*.pug', gulp.parallel('pug'))
+	// Слежение за PUG и сборка
+	watch('./src/pug/**/*.pug', gulp.parallel('pug'))
 
 });
 
@@ -72,11 +69,11 @@ gulp.task('watch', function() {
 gulp.task('server', function() {
 	browserSync.init({
 		server: {
-			baseDir: "./app/"
+			baseDir: "./build/"
 		}
 	})
 });
 
 // Дефолтный таск (задача по умолчанию)
 // Запускаем одновременно задачи server и watch
-gulp.task('default', gulp.parallel('server', 'watch', 'scss', "pug"));
+gulp.task('default', gulp.parallel('server', 'watch', 'scss', 'pug'));
