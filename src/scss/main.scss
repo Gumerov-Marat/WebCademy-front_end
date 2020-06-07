@@ -1,9 +1,15 @@
-@import './blocks/_header.scss';
+// Libs
+@import "./libs/bootstrap-reboot";
+@import "./libs/bootstrap-grid";
 
-$color: #c3bed8;
+// Blocks
+@import "./blocks/base";
+@import "./blocks/header";
+@import "./blocks/social-icons";
+@import "./blocks/logo";
+@import "./blocks/buttons";
 
-body {
-  color: $color;
-  display: flex;
-  transition: all 0.2s ease-in;
-}
+/*
+font-family: 'Montserrat', sans-serif; - BASE FONT
+font-family: 'Playfair Display', serif;
+*/
