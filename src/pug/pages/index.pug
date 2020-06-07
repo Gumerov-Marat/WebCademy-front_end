@@ -1,7 +1,35 @@
 extends ./../layouts/main.pug
 
 block variables
-  - const title = "Главная";
+    - const title = "Главная";
 
 block content
-  include ./../sections/header.pug
+    include ./../sections/header.pug
+
+    .container
+        .row
+            .col-9
+
+                article.post
+                    h2.post__title Austin DIY sriracha polaroid sartorial la croix
+                    .post__info december 26, 2019 — 5 comments
+                    .post__img
+                        img(src="img/posts-preview/img-01.jpg", alt="Austin DIY sriracha polaroid sartorial la croix")
+                    .post__content
+                        p Austin DIY sriracha polaroid sartorial la croix. Air plant vexillologist tilde listicle try-hard tousled. Drinking vinegar flexitarian tumblr, chia aesthetic lyft yuccie. Vegan jean shorts swag, single-origin coffee beard quinoa street art activated charcoal chartreuse whatever. Ramps mlkshk hammock, disrupt butcher poutine ethical prism photo booth keffiyeh franzen edison bulb hoodie master cleanse. Gastropub tofu schlitz, coloring book 3 wolf moon ennui gochujang tousled meggings hot chicken listicle. YOLO plaid fanny pack jean shorts pop-up truffaut tousled kombucha salvia whatever fixie tacos swag man bun migas.
+                    .post__footer
+                        .post__read-more
+                            a(href="#").button-read-more read more
+                        .post__share-icons
+                            .share-icons
+                                a.share-icons__item
+                                    img(src="./img/icons/social/whatsapp.svg", alt="", width="21")
+                                a.share-icons__item
+                                    img(src="./img/icons/social/instagram.svg", alt="", width="19")
+                                a.share-icons__item
+                                    img(src="./img/icons/social/twitter.svg", alt="", width="21")
+                                a.share-icons__item
+                                    img(src="./img/icons/social/facebook-f.svg", alt="", width="12")
+
+
+            .col-3 SIDEBER
