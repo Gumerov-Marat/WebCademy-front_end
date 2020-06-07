@@ -1,9 +1,5 @@
-@import './blocks/_header.scss';
-
-$color: #c3bed8;
-
-body {
-  color: $color;
-  display: flex;
-  transition: all 0.2s ease-in;
-}
+//libs
+@import './libs/bootstrap-grid'
+@import './libs/bootstrap-reboot'
+//blocks
+@import './blocks/base'
