@@ -1,6 +1,9 @@
 .post-widget {
   padding: 40px 0;
-  border-bottom: 1px solid #dde2e7;
+  
+  &:not(:last-child){
+    border-bottom: 1px solid #dde2e7;
+  }
 }
 
 .post-widget__img {
