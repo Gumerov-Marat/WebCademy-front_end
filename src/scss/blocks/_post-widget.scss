@@ -17,12 +17,22 @@
 }
 
 .post-widget__title {
+  margin: 0;
   margin-bottom: 25px;
   color: #1a1a1a;
   font-family: 'Playfair Display', serif;
   font-size: 18px;
   font-weight: 400;
   text-align: center;
+
+  a {
+    color:#1a1a1a;
+    text-decoration: none;
+    &:hover {
+      color:#1a1a1a;
+      text-decoration: underline;
+    }
+  }
 }
 
 .post-widget__info {
