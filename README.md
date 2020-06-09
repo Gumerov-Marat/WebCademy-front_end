@@ -1,1 +1,1 @@
-https://gumerov-marat.github.io/WebCademy-front_end/build/index.html
+https://gumerov-marat.github.io/WebCademy-front_end/build/
